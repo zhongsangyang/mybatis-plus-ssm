@@ -32,10 +32,22 @@ public class ShopController {
     }
     @RequestMapping("/shopList")
     @ResponseBody
-    public Page testFenye(){
-        Page<Shop> pageList=shopService.selectShopList(new Page<Shop>(2,3),"水果");
+    public Page testFenye(Page page){
+        Page<Shop> pageList=null;
+        if(page!=null){
+            pageList=shopService.selectShopList(new Page<Shop>(page.getCurrent(),10),"水果");
+
+        }else{
+            pageList=shopService.selectShopList(new Page<Shop>(1,10),"水果");
+
+        }
         System.out.println(pageList);
         return pageList;
+    }
+    @RequestMapping("/bootstrapPage")
+    public String toBootstrapPage(){
+
+        return  "bootStrapPage";
     }
 }
 
